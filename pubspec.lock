@@ -74,6 +74,20 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  http:
+    dependency: transitive
+    description:
+      name: http
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.13.4"
+  http_parser:
+    dependency: transitive
+    description:
+      name: http_parser
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.0"
   lints:
     dependency: transitive
     description:
@@ -124,11 +138,9 @@ packages:
   spritewidget:
     dependency: "direct main"
     description:
-      path: "."
-      ref: fix_sprite_box
-      resolved-ref: a5b4478a8b400d627e8d8b968a59a3cb1bb034c8
-      url: "https://github.com/mboonchai/spritewidget"
-    source: git
+      path: "../spritewidget"
+      relative: true
+    source: path
     version: "0.9.24"
   stack_trace:
     dependency: transitive

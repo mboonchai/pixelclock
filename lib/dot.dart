@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:spritewidget/spritewidget.dart';
 
+import 'framer.dart';
+
 class Dot extends NodeWithSize {
-  Color color;
   int pX;
   int pY;
+  Color color = Colors.black;
 
-  Dot(this.pX,this.pY,Size size, this.color) : super(size);
+  Dot(this.pX,this.pY,Size size) : super(size);
 
   @override
   void paint(Canvas canvas) {
@@ -18,7 +20,7 @@ class Dot extends NodeWithSize {
     applyTransformForPivot(canvas);
     canvas.drawRect(
         Rect.fromLTWH(0.0, 0.0, size.width, size.height),
-        Paint()..color = color);
+        Paint()..color = color );
 
     var path = Path();
     path.moveTo(0, 0);
@@ -38,7 +40,7 @@ class Dot extends NodeWithSize {
 
     @override
   update(double dt) {
-
+    color = Framer().pixel(pX,pY);
   }
 
 }

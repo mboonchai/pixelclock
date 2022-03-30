@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:spritewidget/spritewidget.dart';
-
+import 'config.dart';
 import 'dot.dart';
+import 'megadot.dart';
 
-  const kCanvasW = 192.0;
-  const kCanvasH = 48.0;
-  const kPixelSZ = 2.0;
-  const kOffset = 0.4;
 
 class Canvas extends StatefulWidget {
   const Canvas({Key? key}) : super(key: key);
@@ -20,7 +17,6 @@ class CanvasState extends State<Canvas> {
   late NodeWithSize rootNode;
   late List<List<NodeWithSize>> dots; 
 
-
   @override
   void initState() {
     super.initState();
@@ -30,20 +26,34 @@ class CanvasState extends State<Canvas> {
     var x =0;
     var y = 0;
 
-     for(var i=0.0;i<kCanvasW;i+=(kPixelSZ+kOffset)) {
+    //  for(var i=0.0;i<kCanvasW;i+=(kPixelSZ+kOffset)) {
+    //    var dary = <NodeWithSize>[];
+    //   y=0;
+    //   for(var j=0.0;j<kCanvasH-(kPixelSZ+kOffset);j+=(kPixelSZ+kOffset)) {
+    //         var dot = Dot(x,y, const Size(kPixelSZ,kPixelSZ));
+    //         dot.position = Offset(i, j);
+    //         dary.add(dot);
+    //         rootNode.addChild(dot);
+    //         ++y;
+    //   }
 
+    //   dots.add(dary);
+    //   ++x;
+    // }
+
+     for(var i=0.0;i<kCanvasW;i+=(kPixelSZ+kOffset)*20) {
        var dary = <NodeWithSize>[];
-
-      for(var j=0.0;j<kCanvasH;j+=(kPixelSZ+kOffset)) {
-            var dot = Dot(x,y, const Size(kPixelSZ,kPixelSZ), Colors.white);
+      y=0;
+      for(var j=0.0;j<kCanvasH-(kPixelSZ+kOffset);j+=(kPixelSZ+kOffset)*20) {
+            var dot = MegaDot(x,y,20,20, const Size((kPixelSZ+kOffset)*20,(kPixelSZ+kOffset)*20));
             dot.position = Offset(i, j);
             dary.add(dot);
             rootNode.addChild(dot);
-            ++y;
+            y+=20;
       }
 
       dots.add(dary);
-      ++x;
+      x+=20;
     }
 
   }
