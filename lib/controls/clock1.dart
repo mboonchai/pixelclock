@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pixelclock/animator.dart';
+import 'package:pixelclock/control.dart';
 
 const H = 7;
 const W = 63;
 
-class Clock1 implements Animator {
+class Clock1 implements Control {
 
   late List<List<Color>> pixels;
 
@@ -25,8 +25,8 @@ class Clock1 implements Animator {
      var glyphs = <String>[];
 
      if(hour>=10) {
-       glyphs.add("1");
-       glyphs.add( (hour-10).toString());
+       glyphs.add((hour/10).floor().toString());
+       glyphs.add( (hour%10).floor().toString());
      } else {
        glyphs.add("0");
        glyphs.add(hour.toString());
@@ -85,7 +85,9 @@ class Clock1 implements Animator {
   }
 
   
-       
+
+  @override
+  int get freq => kFreq1s;
  
   final Map<String,List<List<int>>> numbers = {
     "-" : [ [0,0,0,0,0,0,0,0,0],
@@ -185,4 +187,6 @@ class Clock1 implements Animator {
             [0,0,0],
         ],
   };
+
 }
+       
