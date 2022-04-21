@@ -138,9 +138,11 @@ packages:
   spritewidget:
     dependency: "direct main"
     description:
-      path: "../spritewidget"
-      relative: true
-    source: path
+      path: "."
+      ref: fix_sprite_box
+      resolved-ref: "84d362714fc0bf23974020ee29348094dfc16f47"
+      url: "https://github.com/mboonchai/spritewidget"
+    source: git
     version: "0.9.24"
   stack_trace:
     dependency: transitive

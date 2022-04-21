@@ -4,7 +4,6 @@ import 'package:spritewidget/spritewidget.dart';
 import 'config.dart';
 import 'plate.dart';
 
-
 class Canvas extends StatefulWidget {
   const Canvas({Key? key}) : super(key: key);
 
@@ -14,42 +13,44 @@ class Canvas extends StatefulWidget {
 
 class CanvasState extends State<Canvas> {
   late NodeWithSize rootNode;
-  late List<List<NodeWithSize>> dots; 
+  late List<List<NodeWithSize>> dots;
 
   @override
   void initState() {
     super.initState();
-    rootNode = NodeWithSize(const Size(kCanvasW, kCanvasH));
+
+    rootNode = NodeWithSize(Size(canvasWR(), canvasHR()));
 
     dots = <List<NodeWithSize>>[];
-    var x =0;
+    var x = 0;
     var y = 0;
 
-
-     for(var i=0.0;i<kCanvasW;i+=(kPixelSZ+kOffset)*kPlateW) {
-       var dary = <NodeWithSize>[];
-      y=0;
-      for(var j=0.0;j<kCanvasH-(kPixelSZ+kOffset);j+=(kPixelSZ+kOffset)*kPlateH) {
-            var dot = Plate(x,y,kPlateW,kPlateH, const Size((kPixelSZ+kOffset)*kPlateW,(kPixelSZ+kOffset)*kPlateH));
-            dot.position = Offset(i, j);
-            dary.add(dot);
-            rootNode.addChild(dot);
-            y+=kPlateH;
+    for (var i = 0.0; i < canvasWR(); i += (kPixelSZ + kOffset) * plateWR()) {
+      var dary = <NodeWithSize>[];
+      y = 0;
+      for (var j = 0.0;
+          j < canvasHR() - (kPixelSZ + kOffset);
+          j += (kPixelSZ + kOffset) * plateHR()) {
+        var dot = Plate(
+            x,
+            y,
+            plateWR(),
+            plateHR(),
+            Size((kPixelSZ + kOffset) * plateWR(),
+                (kPixelSZ + kOffset) * plateHR()));
+        dot.position = Offset(i, j);
+        dary.add(dot);
+        rootNode.addChild(dot);
+        y += plateHR();
       }
 
       dots.add(dary);
-      x+=kPlateW;
+      x += plateWR();
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
-
-   
-
-    
-
     return Container(
         decoration: const BoxDecoration(color: Colors.black),
         child: Center(
