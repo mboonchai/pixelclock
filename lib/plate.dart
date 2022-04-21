@@ -41,22 +41,26 @@ class Plate extends NodeWithSize {
 
         canvas.drawRect(rect, Paint()..color = color);
 
+        
+
         //DRAW SHADOW
-        if (color != kColorBG) {
-          var path = Path.combine(
-              PathOperation.difference,
-              Path()
-                ..addRect(Rect.fromLTWH(dx - 4 * kOffset, dy - 4 * kOffset,
-                    kPixelSZ + 4 * kOffset, kPixelSZ + 4 * kOffset)),
-              Path()..addRect(rect));
+         if (kDrawShadow && color != kColorBG) {
+           var path = Path.combine(
+               PathOperation.difference,
+               Path()
+                 ..addRect(Rect.fromLTWH(dx - 4 * kOffset, dy - 4 * kOffset,
+                     kPixelSZ + 4 * kOffset, kPixelSZ + 4 * kOffset)),
+               Path()..addRect(rect));
 
-          canvas.saveLayer(rect, Paint());
-          canvas.clipRect(rect);
-          canvas.drawPath(path, paint);
-          canvas.restore();
+           canvas.saveLayer(rect, Paint());
+           canvas.clipRect(rect);
+           canvas.drawPath(path, paint);
+           canvas.restore();
 
-        }
-        //
+         }
+
+
+      
       }
     }
 
