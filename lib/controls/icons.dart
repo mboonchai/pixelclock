@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 import '../config.dart';
@@ -15,47 +13,43 @@ class IconS implements Control {
   int _frame = 0;
   List<List<List<int>>> data;
   final int _freq;
-  
-  IconS(this.data,this._freq) {
 
-    pixels = List.generate(
-        (H), (i) => List.generate((W), (j) => Colors.black, growable: false),
-        growable: false);
-}
+  IconS(this.data, this._freq) {
+    clear();
+  }
 
   @override
   int get freq => _freq;
 
   @override
   void nextFrame() {
-        clear();
+    clear();
 
     for (var y = 0; y < H; y++) {
-      pixels[y] = data[_frame][y].expand<Color>((e) => {e==0x00000000?kColorBG:Color(e)}).toList(growable: false);
-    } 
+      pixels[y] = data[_frame][y]
+          .expand<Color>((e) => {e == 0x00000000 ? kColorBG : Color(e)})
+          .toList(growable: false);
+    }
 
-    _frame = (_frame+1)%data.length;
+    _frame = (_frame + 1) % data.length;
   }
-
 
   @override
   Color pixel(int x, int y) {
+    if (kRotate90) return pixels[W - x - 1][y];
     return pixels[y][x];
   }
 
-
   @override
-  Size get size=> Size(W.toDouble(), H.toDouble());
+  Size get size => sizeR(Size(W.toDouble(), H.toDouble()));
 
-  
   void clear() {
+    var sz = Size(W.toDouble(), H.toDouble());
+
     pixels = List.generate(
-        (H), (i) => List.generate((W), (j) => Colors.black, growable: false),
+        (sz.height.toInt()),
+        (i) => List.generate((sz.width.toInt()), (j) => Colors.black,
+            growable: false),
         growable: false);
   }
-
 }
-
-
-
-  

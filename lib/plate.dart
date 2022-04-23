@@ -8,7 +8,6 @@ import 'package:spritewidget/spritewidget.dart';
 import 'config.dart';
 import 'framer.dart';
 
-
 //Plate: contains many Dots
 class Plate extends NodeWithSize {
   int posX;
@@ -18,6 +17,7 @@ class Plate extends NodeWithSize {
 
   Plate(this.posX, this.posY, this.nDotW, this.nDotH, Size size) : super(size) {
     motions.stopAll();
+    print("plate $posX $posY $nDotW $nDotH $size");
   }
 
   @override
@@ -30,7 +30,6 @@ class Plate extends NodeWithSize {
       ..maskFilter = const MaskFilter.blur(BlurStyle.outer, kBlurValue);
 
     for (var x = 0; x < nDotW; ++x) {
-
       var dx = x * (kPixelSZ + kOffset);
 
       for (var y = 0; y < nDotH; ++y) {
@@ -38,6 +37,8 @@ class Plate extends NodeWithSize {
 
         final rect = Rect.fromLTWH(dx, dy, kPixelSZ, kPixelSZ);
         final color = Framer().pixel(posX + x, posY + y);
+
+        // print("request pixel: ${posX + x}, ${posY + y}");
 
         canvas.drawRect(rect, Paint()..color = color);
 
@@ -70,5 +71,3 @@ class Plate extends NodeWithSize {
   @override
   update(double dt) {}
 }
-
-

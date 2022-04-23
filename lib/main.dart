@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:pixelclock/control.dart';
 import 'package:pixelclock/framer.dart';
 import 'package:pixelclock/pixels/rocket.dart';
+import 'config.dart';
 import 'controls/clocks.dart';
 import 'controls/icons.dart';
 import 'controls/texts.dart';
@@ -13,8 +14,8 @@ import 'pixels/sunny.dart';
 
 void main() {
   final framer = Framer();
-  framer.addControl(ClockS(), const Offset(12,1));
-  framer.addControl(IconS(links2,kFreq250ms), const Offset(2,1));
+  framer.addControl(ClockS(), offsetR(const Offset(12, 1)));
+  framer.addControl(IconS(links2, kFreq250ms), offsetR(const Offset(2, 1)));
   //framer.addControl(IconS(basketball,kFreq125ms), const Offset(11,1));
   //framer.addControl(IconS(rocket,kFreq125ms), const Offset(20,1));
   //framer.addControl(IconS(beer,kFreq125ms), const Offset(29,1));

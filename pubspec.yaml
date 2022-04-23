@@ -36,10 +36,10 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   spritewidget: 
-    path: ../spritewidget      
-    # git:
-    #   url: https://github.com/mboonchai/spritewidget
-    #   ref: fix_sprite_box
+    # path: ../spritewidget      
+     git:
+       url: https://github.com/mboonchai/spritewidget
+       ref: fix_sprite_box
 
 dev_dependencies:
   flutter_test:
