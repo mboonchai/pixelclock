@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:pixelclock/config.dart';
 import 'package:pixelclock/control.dart';
 
 import '../pixels/alphanum_s.dart';
@@ -9,15 +6,9 @@ import '../pixels/alphanum_s.dart';
 const H = 7;
 const W = 28; //SHORT 17
 
-class ClockS implements Control {
-  late List<List<Color>> pixels;
+class ClockS extends  BaseControl {
 
-  ClockS() {
-    clear();
-  }
-
-  @override
-  int get freq => kFreq1s; //nextframe every second...
+  ClockS(): super(W, H, kFreq1s);
 
   @override
   void nextFrame() {
@@ -75,26 +66,4 @@ class ClockS implements Control {
     }
   }
 
-  @override
-  Color pixel(int x, int y) {
-    // print(" ${x} , ${y} $size");
-
-    if (kRotate90) {
-      return pixels[H - x - 1][y];
-    }
-    return pixels[y][x];
-  }
-
-  @override
-  Size get size => sizeR(Size(W.toDouble(), H.toDouble()));
-
-  void clear() {
-    var sz = Size(W.toDouble(), H.toDouble());
-
-    pixels = List.generate(
-        (sz.height.toInt()),
-        (i) => List.generate((sz.width.toInt()), (j) => Colors.black,
-            growable: false),
-        growable: false);
-  }
 }

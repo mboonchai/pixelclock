@@ -4,15 +4,9 @@ import 'package:pixelclock/control.dart';
 const H = 7;
 const W = 63;
 
-class Clock1 implements Control {
+class Clock1 extends  BaseControl {
 
-  late List<List<Color>> pixels;
-
-  Clock1() {
-    pixels = List.generate((H), (i) => List.generate( (W),(j) => Colors.black, growable: false), growable: false);
-
-  }
-
+  Clock1() : super(W, H, kFreq1s);
 
 
   @override
@@ -52,7 +46,7 @@ class Clock1 implements Control {
        glyphs.add(second.toString());
      }
 
-    clear();
+    super.clear();
     //pixels[counter][0] = Colors.red;
     for(var y=0;y<H;y++) {
         pixels[y] = [  ...numbers[glyphs[0]]![y],
@@ -70,24 +64,6 @@ class Clock1 implements Control {
     }
 
   }
-
-  @override
-  Color pixel(int x, int y) {
-    return pixels[y][x];
-  }
-
-  @override
-  Size get size => Size(W.toDouble(),H.toDouble());
-
-
-   void clear () {
-    pixels = List.generate((H), (i) => List.generate( (W),(j) => Colors.black, growable: false), growable: false);
-  }
-
-  
-
-  @override
-  int get freq => kFreq1s;
  
   final Map<String,List<List<int>>> numbers = {
     "-" : [ [0,0,0,0,0,0,0,0,0],
