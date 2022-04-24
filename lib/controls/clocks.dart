@@ -8,7 +8,11 @@ const W = 28; //SHORT 17
 
 class ClockS extends  BaseControl {
 
-  ClockS(): super(W, H, kFreq1s);
+  final bool showSecond;
+  final bool useTicker;
+
+
+  ClockS({this.showSecond=false,this.useTicker = false}): super(W, H, kFreq1s);
 
   @override
   void nextFrame() {
@@ -17,7 +21,15 @@ class ClockS extends  BaseControl {
     var min = now.minute;
     var second = now.second;
 
+    var ticker = useTicker?(second%2==1):true; //tick on odd number
+
     var glyphs = <String>[];
+
+    //ADD PADDING 4 pixels
+    if(!showSecond) {
+      glyphs.add("\u009B");
+    }
+
 
     if (hour >= 10) {
       glyphs.add((hour / 10).floor().toString());
@@ -27,7 +39,7 @@ class ClockS extends  BaseControl {
       glyphs.add(hour.toString());
     }
 
-    glyphs.add(":");
+    glyphs.add(ticker?":":"\u009A");
 
     if (min >= 10) {
       glyphs.add((min / 10).floor().toString());
@@ -37,15 +49,21 @@ class ClockS extends  BaseControl {
       glyphs.add(min.toString());
     }
 
-    glyphs.add(":");
-
-    if (second >= 10) {
-      glyphs.add((second / 10).floor().toString());
-      glyphs.add((second % 10).toString());
+    if(showSecond) {
+      glyphs.add(ticker?":":"\u009A");
+      if (second >= 10) {
+        glyphs.add((second / 10).floor().toString());
+        glyphs.add((second % 10).toString());
+      } else {
+        glyphs.add("0");
+        glyphs.add(second.toString());
+      }
     } else {
-      glyphs.add("0");
-      glyphs.add(second.toString());
+      //ADD PADDING 4 pixels
+      glyphs.add("\u009B");
+      glyphs.add("\u009A");
     }
+
 
     clear();
     //pixels[counter][0] = Colors.red;

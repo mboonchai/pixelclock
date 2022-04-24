@@ -4,78 +4,66 @@ import 'package:flutter/material.dart';
 
 import 'control.dart';
 import 'config.dart';
+import 'apps/base.dart';
 
 class Framer {
   static Framer? _instance;
-  Framer._() {
-    init();
-  }
+  Framer._();
   factory Framer() => _instance ??= Framer._();
 
-  //////////////////////
-
-  List<Slot> slots = [];
-  late List<List<Color>> pixels;
   int counter = 0;
-  late int row;
-  late int col;
 
-  void init() {
-    row = (canvasWR() / (kPixelSZ + kOffset)).floor();
-    col = (canvasHR() / (kPixelSZ + kOffset)).floor();
 
-    pixels = List.generate((row),
-        (i) => List.generate((col), (j) => Colors.black, growable: false),
-        growable: false);
+  final List<App> _sets = [];
+  int _activeSet = -1;
+
+  Framer addApp(App set) {
+    _sets.add(set);
+    return this;
   }
 
   void start() {
     //EACH TICK = 125
     const duration = Duration(milliseconds: 125);
 
+    if(_sets.isNotEmpty) {
+      _activeSet = 0;
+    }
+
     int counter = 0;
+    _nextFrame(counter);
     Timer.periodic(duration, (timer) {
-      counter = (counter + kFreq125ms) % 40; //count max 5 second...
-      nextFrame(counter);
+      counter = (counter + kFreq125ms) % 40; //count max 5 second..., why 40..?
+      _nextFrame(counter);
     });
   }
 
-  void addControl(Control ctrl, Offset pos) {
-    slots.add(Slot(
-        ctrl,
-        kRotate90
-            ? Rect.fromLTWH(row - ctrl.size.width - pos.dx, pos.dy,
-                ctrl.size.width, ctrl.size.height)
-            : Rect.fromLTWH(
-                pos.dx, pos.dy, ctrl.size.width, ctrl.size.height)));
-  }
-
   Color pixel(int x, int y) {
-    for (var i = 0; i < slots.length; ++i) {
-      var s = slots[i];
-      //print("slot area: ${s.area}");
-      if (s.area.contains(Offset(x.toDouble(), y.toDouble()))) {
-        return s.ctrl
-            .pixel((x - s.area.left).floor(), (y - s.area.top).floor());
-      }
+
+    if(_sets.length <= _activeSet) {
+      return kColorBG;
     }
 
-    return pixels[x][y];
+    return _sets[_activeSet].pixel(x, y);
   }
 
-  void nextFrame(int counter) {
-    for (var i = 0; i < slots.length; ++i) {
-      if ((counter / slots[i].ctrl.freq) ==
-          (counter / slots[i].ctrl.freq).floor()) {
-        slots[i].ctrl.nextFrame();
-      }
+  void _nextFrame(int counter) {
+    if(_sets.length > _activeSet) {
+        _sets[_activeSet].nextFrame(counter);
     }
   }
-}
 
-class Slot {
-  Control ctrl;
-  Rect area;
+  void nextSet() {
+    if(_sets.isNotEmpty) {
+      _activeSet = (_activeSet+1)%_sets.length;
 
-  Slot(this.ctrl, this.area);
+    }    
+  }
+
+   void prevSet() {
+    if(_sets.isNotEmpty) {
+      _activeSet = (_sets.length+_activeSet-1)%_sets.length;
+
+    }    
+  }
 }

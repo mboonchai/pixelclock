@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:spritewidget/spritewidget.dart';
 import 'config.dart';
+import 'framer.dart';
 import 'plate.dart';
 
-class Canvas extends StatefulWidget {
-  const Canvas({Key? key}) : super(key: key);
+class PixelClock extends StatefulWidget {
+  const PixelClock({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => CanvasState();
+  State<StatefulWidget> createState() => PixelClockState();
 }
 
-class CanvasState extends State<Canvas> {
+class PixelClockState extends State<PixelClock> {
   late NodeWithSize rootNode;
   late List<List<NodeWithSize>> dots;
 
@@ -51,9 +52,20 @@ class CanvasState extends State<Canvas> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: const BoxDecoration(color: Colors.black),
-        child: Center(
-            child: AspectRatio(aspectRatio: 4, child: SpriteWidget(rootNode))));
+    return GestureDetector(
+        onTapDown: (TapDownDetails details) {
+          var x = details.globalPosition.dx;
+          var y = details.globalPosition.dy;
+          // or user the local position method to get the offset
+          print(details.localPosition);
+          print("tap down " + x.toString() + ", " + y.toString());
+
+          Framer().nextSet();
+        },
+        child: Container(
+            decoration: const BoxDecoration(color: Colors.black),
+            child: Center(
+                child: AspectRatio(
+                    aspectRatio: 4, child: SpriteWidget(rootNode)))));
   }
 }

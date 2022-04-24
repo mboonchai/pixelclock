@@ -17,7 +17,9 @@ const kOffset = 0.8;
 const kPlateW = 10;
 const kPlateH = 10;
 
-const kColorBG = Color(0xFF000000);
+const kColorBG = Color(0xFF080808);
+const kUseBGColorOffset = true;
+const kBGColorOffset = 0x24;
 
 
 //FOR SHADOW

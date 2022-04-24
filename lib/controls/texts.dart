@@ -6,10 +6,10 @@ import '../pixels/alphanum_s.dart';
 const H = 7;
 const W = 40; //SAME SA LONG CLOCK...
 
-class TextS implements Control {
+class TextS extends  BaseControl {
   late List<List<Color>> pixels;
   String message;
-
+  bool scrolling = true;
 
   //message total pixel w
   int messagePixW = 0;
@@ -17,24 +17,10 @@ class TextS implements Control {
   //for animation
   int frame = 0;
 
-  TextS(this.message) {
+  TextS(this.message,{this.scrolling=true}): super(W, H, kFreq250ms) {
 
-    message = message.toUpperCase();
-
-    pixels = List.generate(
-        (H), (i) => List.generate((W), (j) => Colors.black, growable: false),
-        growable: false);
-
-    messagePixW = 0;
-    for (var i = 0; i < message.length; ++i) {
-      messagePixW += alphanum[message[i]]![0].length;
-    }
+    setMessage(message);
   }
-  
-  
-
-  @override
-  int get freq => kFreq250ms;
 
   @override
   void nextFrame() {
@@ -74,28 +60,21 @@ class TextS implements Control {
 
     //calc width of msg
     var textW = messagePixW;
-    if (textW > W) {
+    if (textW > W && scrolling) {
       //scroll...
       frame = (frame+1)%(messagePixW+space);
     }
   }
 
-  @override
-  Color pixel(int x, int y) {
-    return pixels[y][x];
-  }
-
-  @override
-  Size get size => Size(W.toDouble(), H.toDouble());
-
-  void clear() {
-    pixels = List.generate(
-        (H), (i) => List.generate((W), (j) => Colors.black, growable: false),
-        growable: false);
-  }
+ 
 
   void setMessage(String msg) {
-    message = msg;
+    message = msg.toUpperCase();
     frame = 0;
+
+     messagePixW = 0;
+    for (var i = 0; i < message.length; ++i) {
+      messagePixW += alphanum[message[i]]![0].length;
+    }
   }
 }
