@@ -3,6 +3,7 @@
 import 'dart:ui';
 
 // ignore: import_of_legacy_library_into_null_safe
+import 'package:flutter/material.dart';
 import 'package:spritewidget/spritewidget.dart';
 
 import 'config.dart';
@@ -39,7 +40,9 @@ class Plate extends NodeWithSize {
         final color = Framer().pixel(posX + x, posY + y);
 
         // print("request pixel: ${posX + x}, ${posY + y}");
-
+        if(color==Colors.transparent){
+          continue;
+        }
         canvas.drawRect(rect, Paint()..color = color);
 
         

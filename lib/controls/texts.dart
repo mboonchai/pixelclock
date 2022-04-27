@@ -7,7 +7,6 @@ const H = 7;
 const W = 40; //SAME SA LONG CLOCK...
 
 class TextS extends  BaseControl {
-  late List<List<Color>> pixels;
   String message;
   bool scrolling = true;
 

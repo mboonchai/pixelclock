@@ -1,55 +1,54 @@
 import 'package:flutter/material.dart';
-
+import 'package:pixelclock/control.dart';
 import '../config.dart';
-import '../control.dart';
 
-const H = 8;
-const W = 8;
 
-class IconS implements Control {
-  late List<List<Color>> pixels;
+class IconS extends BaseControl {
 
   //for animation
   int _frame = 0;
   List<List<List<int>>> data;
-  final int _freq;
+  late List<int> _frameControls;
 
-  IconS(this.data, this._freq) {
+  late int height;
+  late int width;
+
+  IconS(this.data,int freq,{List<int> animationFrameCfg = const[],this.height = 8, this.width = 8}): super(width, height, freq) {
     clear();
+
+    print(data.length);
+
+    _buildFrameControl(animationFrameCfg);
+
   }
 
-  @override
-  int get freq => _freq;
+  void _buildFrameControl(List<int> cfg) {
+      if (cfg.isEmpty) {
+        //no frame control --> use default
+        _frameControls =List.generate(data.length, (index) => index,growable: false);
+      } else {
+
+        _frameControls = [];
+        for(var i=0;i<cfg.length;++i) {
+          for(var j=0;j<cfg[i];++j) {
+            _frameControls.add(i);
+          }
+        }
+      }
+  }
+
 
   @override
   void nextFrame() {
     clear();
 
-    for (var y = 0; y < H; y++) {
-      pixels[y] = data[_frame][y]
+    for (var y = 0; y < height; y++) {
+      pixels[y] = data[_frameControls[_frame]][y]
           .expand<Color>((e) => {e == 0x00000000 ? kColorBG : Color(e)})
           .toList(growable: false);
     }
 
-    _frame = (_frame + 1) % data.length;
+    _frame = (_frame + 1) % _frameControls.length;
   }
 
-  @override
-  Color pixel(int x, int y) {
-    if (kRotate90) return pixels[W - x - 1][y];
-    return pixels[y][x];
-  }
-
-  @override
-  Size get size => sizeR(Size(W.toDouble(), H.toDouble()));
-
-  void clear() {
-    var sz = Size(W.toDouble(), H.toDouble());
-
-    pixels = List.generate(
-        (sz.height.toInt()),
-        (i) => List.generate((sz.width.toInt()), (j) => Colors.black,
-            growable: false),
-        growable: false);
-  }
 }

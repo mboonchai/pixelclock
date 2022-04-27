@@ -5,13 +5,14 @@ import 'package:pixelclock/framer.dart';
 import 'package:pixelclock/pixels/beer.dart';
 import 'package:pixelclock/pixels/link2.dart';
 import 'package:pixelclock/pixels/rocket.dart';
+import 'apps/calendar_clock.dart';
 import 'config.dart';
 import 'apps/basic.dart';
 import 'controls/blank.dart';
 import 'controls/clocks.dart';
 import 'controls/icons.dart';
 import 'pixelclock.dart';
-import 'pixels/tetris2.dart';
+import 'pixels/weathers/weathers.dart';
 
 void main() {
   final framer = Framer().addApp(
@@ -22,11 +23,13 @@ void main() {
     WeatherApp()
   ).addApp(
     BasicApp()
-      .addControl(IconS(tetris2, kFreq250ms), offsetR(const Offset(1, 1)))
-      .addControl(IconS(links2, kFreq250ms), offsetR(const Offset(10, 1)))
-      .addControl(IconS(rocket, kFreq125ms), offsetR(const Offset(19, 1)))
-      .addControl(IconS(beer, kFreq125ms), offsetR(const Offset(27, 1)))
-  );
+      .addControl(IconS(w02n, kFreq125ms,animationFrameCfg: w02nCtrl), offsetR(const Offset(1, 1)))
+      .addControl(IconS(w02d, kFreq125ms,animationFrameCfg: w02dCtrl), offsetR(const Offset(10, 1)))
+      .addControl(IconS(w01d, kFreq125ms), offsetR(const Offset(19, 1)))
+      .addControl(IconS(w01n, kFreq125ms), offsetR(const Offset(28, 1)))
+  ).addApp(CalendarClock())
+  
+  ;
   //framer.addControl(ClockS(), offsetR(const Offset(12, 1)));
   //framer.addControl(IconS(tetris2, kFreq250ms), offsetR(const Offset(2, 1)));
 

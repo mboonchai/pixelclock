@@ -27,7 +27,7 @@ const kDrawShadow = true;
 const kBlurValue = 0.6;
 
 
-const kRotate90 = true;
+const kRotate90 = false;
 
 double canvasWR() {
   if (kRotate90) return kCanvasH;
