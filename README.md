@@ -1,6 +1,6 @@
 # pixelclock
 
-This is LaMetric Clone for Raspberry PI 4, implemented with Flutter.
+This is LaMetric TIME Clone for Raspberry PI 4, implemented with Flutter.
 You will also need a led screen (preferred 4:1).
 Follow instruction here to compile --> https://github.com/ardera/flutter-pi
 
