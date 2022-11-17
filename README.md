@@ -1,16 +1,9 @@
 # pixelclock
 
-A new Flutter project.
+This is LaMetric Clone for Raspberry PI 4, implemented with Flutter.
+You will also need a led screen (preferred 4:1).
+Follow instruction here to compile --> https://github.com/ardera/flutter-pi
 
-## Getting Started
+This project also need custom version of spritewidget library to compile --> https://github.com/mboonchai/spritewidget/tree/fix_sprite_box
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+I'm currently rewrote this project with Flame Engine and will be open to public after I've cleaned up some codes.
