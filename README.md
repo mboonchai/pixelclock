@@ -6,7 +6,7 @@ Follow instruction here to compile --> https://github.com/ardera/flutter-pi
 
 This project also need custom version of spritewidget library to compile --> https://github.com/mboonchai/spritewidget/tree/fix_sprite_box
 
-I'm currently rewritinh this project with Flame Engine and will open to public after I've cleaned up some codes.
+I'm currently rewriting this project with Flame Engine, see [da_pixel](https://github.com/mboonchai/da_pixel)
 
 
 
